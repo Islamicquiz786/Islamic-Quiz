@@ -62,7 +62,8 @@
     input[type="email"],
     input[type="password"],
     input[type="tel"],
-    input[type="file"] {
+    input[type="file"],
+    select {
       width: 100%;
       padding: 12px;
       margin: 8px 0 15px;
@@ -131,15 +132,23 @@
       <em>"O my Lord, increase me in knowledge"</em>
     </div>
 
-    <div class="note">
+    <!-- Plan Selector -->
+    <label for="plan">Choose Your Plan:</label>
+    <select id="plan" onchange="updatePlanDetails()">
+      <option value="1000">Rs. 1000 Plan</option>
+      <option value="1500" selected>Rs. 1500 Plan</option>
+      <option value="2000">Rs. 2000 Plan</option>
+    </select>
+
+    <div class="note" id="fee-note">
       <strong>Registration Fee:</strong> Rs. 1500 (One Time)
     </div>
 
-    <div class="benefits">
+    <div class="benefits" id="benefits">
       <ul>
-        <li>✅ Earn Rs. 900 Daily by Tasks</li>
-        <li>✅ Rs. 500 Bonus for Referring 2 Friends</li>
-        <li>✅ Rs. 400 for Answering 2 Daily Questions</li>
+        <li>✅ Earn Rs. <span id="total-earning">900</span> Daily by Tasks</li>
+        <li>✅ Rs. <span id="referral">500</span> Bonus for Referring 2 Friends</li>
+        <li>✅ Rs. <span id="qa">400</span> for Answering 2 Daily Questions</li>
         <li>✅ Start Earning from Day 1</li>
       </ul>
     </div>
@@ -172,15 +181,36 @@
     </div>
 
     <div class="admin-link">
-      <strong>Contact Team:</strong> 03221857442 <br>
-      <a href="https://chat.whatsapp.com/ENRZiUGWLZGBw92AXPJ9ps" target="_blank">Join WhatsApp Group</a>
+      <strong>Contact Team:</strong> 923487131724 <br>
+      <a href="https://chat.whatsapp.com/G1eP5T3S4oKKoei8iWtBK7" target="_blank">Join WhatsApp Group</a>
     </div>
   </div>
 
   <!-- WhatsApp Chat Button -->
-  <a href="https://wa.me/923221857442" target="_blank" style="position:fixed;bottom:15px;right:15px;z-index:999;">
+  <a href="https://wa.me/923487131724" target="_blank" style="position:fixed;bottom:15px;right:15px;z-index:999;">
     <img src="https://img.icons8.com/color/48/000000/whatsapp.png" alt="Chat"/>
   </a>
+
+  <!-- Plan Logic Script -->
+  <script>
+    const plans = {
+      1000: { fee: 1000, referral: 350, qa: 250 },
+      1500: { fee: 1500, referral: 500, qa: 400 },
+      2000: { fee: 2000, referral: 650, qa: 550 }
+    };
+
+    function updatePlanDetails() {
+      const selected = document.getElementById("plan").value;
+      const plan = plans[selected];
+
+      document.getElementById("fee-note").innerHTML = `<strong>Registration Fee:</strong> Rs. ${plan.fee} (One Time)`;
+      document.getElementById("referral").innerText = plan.referral;
+      document.getElementById("qa").innerText = plan.qa;
+      document.getElementById("total-earning").innerText = plan.referral + plan.qa;
+    }
+
+    window.onload = updatePlanDetails;
+  </script>
 
 </body>
 </html>
